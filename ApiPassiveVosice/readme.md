@@ -71,6 +71,7 @@ test_oracion_activa_no_cambia → Verifica que una oración activa no se modifiq
 test_convertir_pasiva_maiev → Caso: "Los libros fueron escritos por Maiev." debe convertirse a voz activa.
 
 La salida de los test, si todo esta OK, va a ser:
+```bash
 test_api.py::test_root PASSED
 test_api.py::test_convertir_pasiva_simple PASSED
 test_api.py::test_convertir_pasiva_plural PASSED
