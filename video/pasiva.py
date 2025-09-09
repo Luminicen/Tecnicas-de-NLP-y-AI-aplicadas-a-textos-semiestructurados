@@ -39,7 +39,19 @@ class ConversorPasivaActiva(Scene):
         self.wait(2)
         self.play(FadeOut(agente), FadeOut(label_agente), FadeOut(brace_agente))
 
+        frase_lema = Text("El libro escribir por Gabriel García Márquez", font_size=36, color=ORANGE)
+        frase_lema.next_to(frase_pasiva, DOWN, buff=0.5)
+        etiqueta = Text("Lematización", font_size=24, color=BLUE).next_to(frase_lema, DOWN, buff=0.2)
 
+        self.play(Write(frase_lema), Write(etiqueta))
+        self.wait(2)
+
+        # Animación de transformación desde el original a la forma lematizada
+        self.play(Transform(frase_pasiva, frase_lema))
+        self.wait(2)
+        self.play(FadeOut(etiqueta))
+        
+        
 
         # 4. Transformación a activa
         frase_activa = Text("Gabriel García Márquez escribió el libro", font_size=36, color=GREEN)
