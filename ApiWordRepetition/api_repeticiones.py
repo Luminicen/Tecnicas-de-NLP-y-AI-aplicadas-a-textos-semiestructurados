@@ -13,8 +13,6 @@ app = FastAPI(title="Detección de repetición de palabras", version="1.0")
 class TextoEntrada(BaseModel):
     texto: str
 
-def eliminar_signos_de_puntuacion(tokens: list[Token]) -> list[Token]:
-    return [token for token in tokens if not token.is_punct]
 
 def es_palabra_frecuente(token: Token) -> bool:
     # si es articulo
@@ -33,17 +31,25 @@ def es_palabra_frecuente(token: Token) -> bool:
         return True
     return False
 
-def eliminar_palabras_frecuentes(tokens: list[Token]) -> list[Token]:
-    return [token for token in tokens if not es_palabra_frecuente(token)]
 
+def normalizar_token(token: Token, sin_palabras_frecuentes: bool) -> str | None:
+    # ignora signos de puntuacion
+    if token.is_punct:
+        return None
 
-def filtrar_tokens(tokens: list[Token], sin_palabras_frecuentes: bool) -> list[Token]:
-    tokens = eliminar_signos_de_puntuacion(tokens)
+    # ignora palabras frecuentes
+    if sin_palabras_frecuentes and es_palabra_frecuente(token):
+        return None
 
-    if sin_palabras_frecuentes:
-        tokens = eliminar_palabras_frecuentes(tokens)
+    # conserva nombres propios en mayusculas
+    if token.pos_ == "PROPN":
+        return token.text
 
-    return tokens
+    # convierte sustantivos plurales a singular
+    if token.pos_ == "NOUN" and "Plur" in token.morph.get("Number"):
+        return token.lemma_.lower()
+
+    return token.text.lower()
 
 
 def contar_palabras_repetidas(palabras: list[str]) -> dict[str, int]:
@@ -74,11 +80,13 @@ def detectar(
     )
 ):
     doc = nlp(entrada.texto)
-
     tokens = [token for token in doc]
-    tokens = filtrar_tokens(tokens, sin_palabras_frecuentes)
-    palabras = [token.text for token in tokens]
-    # falta ver mayusculas y palabras a singular
+
+    palabras = [
+        palabra
+        for token in tokens
+        if (palabra := normalizar_token(token, sin_palabras_frecuentes)) is not None
+    ]
 
     return contar_palabras_repetidas(palabras)
 
