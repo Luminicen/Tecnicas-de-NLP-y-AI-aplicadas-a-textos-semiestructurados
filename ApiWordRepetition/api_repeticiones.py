@@ -32,7 +32,10 @@ def es_palabra_frecuente(token: Token) -> bool:
     return False
 
 
-def normalizar_token(token: Token, sin_palabras_frecuentes: bool) -> str | None:
+def normalizar_token(
+        token: Token,
+        sin_palabras_frecuentes: bool,
+        con_sustantivos_en_singular: bool) -> str | None:
     # ignora signos de puntuacion
     if token.is_punct:
         return None
@@ -41,13 +44,14 @@ def normalizar_token(token: Token, sin_palabras_frecuentes: bool) -> str | None:
     if sin_palabras_frecuentes and es_palabra_frecuente(token):
         return None
 
+    # convierte sustantivos plurales a singular
+    if con_sustantivos_en_singular:
+        if token.pos_ == "NOUN" and "Plur" in token.morph.get("Number"):
+            return token.lemma_.lower()
+
     # conserva nombres propios en mayusculas
     if token.pos_ == "PROPN":
         return token.text
-
-    # convierte sustantivos plurales a singular
-    if token.pos_ == "NOUN" and "Plur" in token.morph.get("Number"):
-        return token.lemma_.lower()
 
     return token.text.lower()
 
@@ -77,6 +81,9 @@ def detectar(
     entrada: TextoEntrada,
     sin_palabras_frecuentes: bool = Query(
         False, description="Ignorar artículos, pronombres, preposiciones y conjunciones"
+    ),
+    con_sustantivos_en_singular: bool = Query(
+        False, description="Llevar sustantivos plurales a singular"
     )
 ):
     doc = nlp(entrada.texto)
@@ -85,7 +92,8 @@ def detectar(
     palabras = [
         palabra
         for token in tokens
-        if (palabra := normalizar_token(token, sin_palabras_frecuentes)) is not None
+        if (palabra := normalizar_token(token, sin_palabras_frecuentes, con_sustantivos_en_singular))
+           is not None
     ]
 
     return contar_palabras_repetidas(palabras)
