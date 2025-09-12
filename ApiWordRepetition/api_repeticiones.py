@@ -39,20 +39,16 @@ def normalizar_token(
     # ignora signos de puntuacion
     if token.is_punct:
         return None
-
     # ignora palabras frecuentes
     if sin_palabras_frecuentes and es_palabra_frecuente(token):
         return None
-
     # convierte sustantivos plurales a singular
     if con_sustantivos_en_singular:
         if token.pos_ == "NOUN" and "Plur" in token.morph.get("Number"):
             return token.lemma_.lower()
-
     # conserva nombres propios en mayusculas
     if token.pos_ == "PROPN":
         return token.text
-
     return token.text.lower()
 
 
