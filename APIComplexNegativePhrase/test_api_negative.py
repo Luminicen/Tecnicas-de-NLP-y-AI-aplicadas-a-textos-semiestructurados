@@ -33,7 +33,8 @@ def test_negativa_compleja():
 def test_negativa_refuerzo():
     ejemplos = [
         # oración, resultado esperado
-        ("Nadie dijo que no fuera dificil", False),
-        ("Nunca dijo nada.", False)
+        ("Nadie dijo que fuera facil", False),
+        ("Nadie dijo nada.", False),
+        ("No vi a nadie",False)
     ]
     checkeo(ejemplos)

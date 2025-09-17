@@ -31,13 +31,15 @@ def negEncontrada(palabra):
     return 1 if palabra in negativo else 0
 
 
-def bucleHerencia(padre,contadorN):
-    for hijo in (h for h in padre.children if h.dep_ in ["ccomp", "acl","csubj","advmod","nsubj","mark"]):
-        if hijo.pos_=="SCONJ" and padre.pos_!="VERB":                        
+def bucleHerencia(padre,contadorN=0):    
+    for hijo in (h for h in padre.children if h.dep_ in ["ccomp", "acl","csubj","advmod","nsubj","mark","obj"]):
+        #Verificamos si es un caso de refuerzo negativo.
+        if (hijo.pos_=="SCONJ" and padre.pos_!="VERB") or hijo.dep_=="obj":                        
             return -100;
         contadorN+=negEncontrada(hijo.lemma_.lower())
+        #Avanzamos por los hijos que nos permiten seguir buscando negaciones.
         if hijo.dep_ in ["ccomp", "acl","csubj","nsubj"]:
-            contadorN+=bucleHerencia(hijo,contadorN)
+            contadorN+=bucleHerencia(hijo)
             if contadorN <0:
                 return -100
     return contadorN
