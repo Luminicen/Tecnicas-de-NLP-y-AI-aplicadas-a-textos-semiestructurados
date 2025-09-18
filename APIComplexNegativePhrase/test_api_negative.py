@@ -15,7 +15,9 @@ def test_negativa_simple():
     ejemplos = [
         # oración, resultado esperado
         ("No se puede lograr.", False),
-        ("dudo mucho ese resultado.", False)
+        ("dudo mucho ese resultado.", False),
+        ("Nadie dijo que fuera facil.", False),
+        ("El estudiante no aprobó el examen.", False)
     ]
 
     checkeo(ejemplos)
@@ -33,7 +35,9 @@ def test_negativa_compleja():
 def test_negativa_refuerzo():
     ejemplos = [
         # oración, resultado esperado
-        ("Nadie dijo que no fuera dificil", False),
-        ("Nunca dijo nada.", False)
+        ("Nadie dijo que fuera dificil", False),
+        ("Nadie dijo nada.", False),
+        ("No vi a nadie",False),
+        ("No creo que nunca lo olviden.",False),
     ]
     checkeo(ejemplos)

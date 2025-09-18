@@ -11,13 +11,10 @@ class TextoEntrada(BaseModel):
 
 def valor(doc):
     for token in doc:
-        contadorN=0
-        if token.pos_ == "VERB" or token.pos_=="ADJ" :
-            contadorN+=negEncontrada(token.lemma_.lower())+bucleHerencia(token,contadorN)
-            if contadorN >= 2:
-                return True
-            return False
+        if token.pos_ in {"VERB", "ADJ"} and negEncontrada(token.lemma_.lower()) + bucleHerencia(token, 0) >= 2:
+            return True
     return False
+
 
 def negEncontrada(palabra):    
     negativo = {
@@ -31,15 +28,18 @@ def negEncontrada(palabra):
     return 1 if palabra in negativo else 0
 
 
-def bucleHerencia(padre,contadorN):
-    for hijo in (h for h in padre.children if h.dep_ in ["ccomp", "acl","csubj","advmod","nsubj","mark"]):
-        if hijo.pos_=="SCONJ" and padre.pos_!="VERB":                        
-            return -100;
+def bucleHerencia(padre,contadorN=0):   
+    penalizar=-100 
+    for hijo in (h for h in padre.children if h.dep_ in ["ccomp", "acl","csubj","advmod","nsubj","mark","obj"]):
+        #Verificamos si es un caso de refuerzo negativo.
+        if (hijo.pos_=="SCONJ" and padre.pos_!="VERB") or hijo.dep_=="obj":                        
+            return penalizar;
         contadorN+=negEncontrada(hijo.lemma_.lower())
+        #Avanzamos por los hijos que nos permiten seguir buscando negaciones.
         if hijo.dep_ in ["ccomp", "acl","csubj","nsubj"]:
-            contadorN+=bucleHerencia(hijo,contadorN)
+            contadorN+=bucleHerencia(hijo)
             if contadorN <0:
-                return -100
+                return penalizar
     return contadorN
 
 # Endpoint principal
