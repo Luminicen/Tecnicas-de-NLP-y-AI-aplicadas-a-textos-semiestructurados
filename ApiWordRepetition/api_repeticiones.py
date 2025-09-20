@@ -1,3 +1,4 @@
+import unicodedata
 from fastapi import FastAPI
 from fastapi.params import Query
 from pydantic import BaseModel
@@ -14,7 +15,7 @@ class TextoEntrada(BaseModel):
     texto: str
 
 
-def es_palabra_frecuente(token: Token) -> bool:
+def _es_palabra_frecuente(token: Token) -> bool:
     # si es articulo
     if "Art" in token.morph.get("PronType"):
         return True
@@ -32,7 +33,7 @@ def es_palabra_frecuente(token: Token) -> bool:
     return False
 
 
-def normalizar_token(
+def _normalizar_token(
         token: Token,
         sin_palabras_frecuentes: bool,
         con_sustantivos_en_singular: bool) -> str | None:
@@ -40,7 +41,7 @@ def normalizar_token(
     if token.is_punct:
         return None
     # ignora palabras frecuentes
-    if sin_palabras_frecuentes and es_palabra_frecuente(token):
+    if sin_palabras_frecuentes and _es_palabra_frecuente(token):
         return None
     # convierte sustantivos plurales a singular
     if con_sustantivos_en_singular:
@@ -52,7 +53,12 @@ def normalizar_token(
     return token.text.lower()
 
 
-def contar_palabras_repetidas(palabras: list[str]) -> dict[str, int]:
+def _clave_alfabetica_sin_tildes(palabra: str) -> str:
+    base = unicodedata.normalize("NFD", palabra)
+    sin_tildes = "".join(ch for ch in base if not unicodedata.combining(ch))
+    return sin_tildes.lower()
+
+def _contar_palabras_repetidas(palabras: list[str]) -> dict[str, int]:
     contador_de_palabras = Counter(palabras)
 
     resultado = {
@@ -64,7 +70,9 @@ def contar_palabras_repetidas(palabras: list[str]) -> dict[str, int]:
     resultado_ordenado_descendente_por_cantidad_de_repeticiones = {
         palabra: cantidad_apariciones
         for palabra, cantidad_apariciones in sorted(
-            resultado.items(), key=lambda item: item[1], reverse=True
+            resultado.items(), key=lambda item: (-item[1], _clave_alfabetica_sin_tildes(item[0]), item[0])
+
+            #resultado.items(), key=lambda item: item[1], reverse=True
         )
     }
 
@@ -88,11 +96,11 @@ def detectar(
     palabras = [
         palabra
         for token in tokens
-        if (palabra := normalizar_token(token, sin_palabras_frecuentes, con_sustantivos_en_singular))
+        if (palabra := _normalizar_token(token, sin_palabras_frecuentes, con_sustantivos_en_singular))
            is not None
     ]
 
-    return contar_palabras_repetidas(palabras)
+    return _contar_palabras_repetidas(palabras)
 
 # Endpoint de prueba
 @app.get("/")
