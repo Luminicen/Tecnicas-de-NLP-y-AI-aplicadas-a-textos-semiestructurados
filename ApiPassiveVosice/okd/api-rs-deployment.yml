@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: vozpasiva
-          image: luminicen/api-pasiva-activa:lastest
+          image: luminicen/api-pasiva-activa:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
