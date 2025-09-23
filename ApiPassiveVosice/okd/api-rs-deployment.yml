@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vozpasiva
+  name: vozpasiva
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     app: vozpasiva        
+  template:
+    metadata:            
+      labels:
+        app: vozpasiva        
+    spec:
+      containers:
+        - name: vozpasiva
+          image: luminicen/api-pasiva-activa:lastest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              protocol: TCP     
