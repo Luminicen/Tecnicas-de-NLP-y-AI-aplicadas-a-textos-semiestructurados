@@ -18,7 +18,6 @@ cliches= [
     "guardar datos en la base de datos",
     "refactorizar el código",
     "implementar la API",
-    "probar el sistema",
     "que sea más bonito",
     "un diseño moderno",
     "que sea seguro",
@@ -75,6 +74,6 @@ def detectar_cliches(texto, lista_cliches, nlp, umbral=70):
         #valor = fuzz.partial_ratio(cliche_lemmas, texto_lemmas)
         
         if valor >= umbral:
-            print(valor)
+            print(f"{cliche} → {valor}") 
             encontrados.append(cliche)
     return encontrados
