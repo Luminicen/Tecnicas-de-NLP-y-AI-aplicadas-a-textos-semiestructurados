@@ -68,11 +68,10 @@ def detectar_cliches(texto, lista_cliches, nlp, umbral=70):
     
     encontrados = []
     for cliche in lista_cliches:
+
         cliche_lemmas = lematizar(cliche, nlp)
         valor = fuzz.token_set_ratio(cliche_lemmas, texto_lemmas)
 
-        #valor = fuzz.partial_ratio(cliche_lemmas, texto_lemmas)
-        
         if valor >= umbral:
             print(f"{cliche} → {valor}") 
             encontrados.append(cliche)
