@@ -77,8 +77,4 @@ def detectar_cliches(texto, lista_cliches, nlp, umbral=70):
         if valor >= umbral:
             print(valor)
             encontrados.append(cliche)
-
     return encontrados
-
-texto = "Como tester, quiero ser capaz de ejecutar pruebas automáticas en diferentes entornos y con distintos volúmenes de datos, para que el sistema sea compatible con todo, más robusto y nunca falle en producción"
-#print(detectar_cliches(texto, cliches, nlp))
