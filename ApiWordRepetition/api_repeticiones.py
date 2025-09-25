@@ -16,12 +16,13 @@ class TextoEntrada(BaseModel):
 
 
 def _es_palabra_frecuente(token: Token) -> bool:
-    # si es articulo
-    if "Art" in token.morph.get("PronType"):
+    # si es determinante
+    if token.pos_ == "DET":
         return True
     # si es preposicion
     if token.pos_ == "ADP":
         return True
+    # si es pronombre
     if token.pos_ == "PRON":
         return True
     # si es conjuncion coordinante
@@ -71,8 +72,6 @@ def _contar_palabras_repetidas(palabras: list[str]) -> dict[str, int]:
         palabra: cantidad_apariciones
         for palabra, cantidad_apariciones in sorted(
             resultado.items(), key=lambda item: (-item[1], _clave_alfabetica_sin_tildes(item[0]), item[0])
-
-            #resultado.items(), key=lambda item: item[1], reverse=True
         )
     }
 
