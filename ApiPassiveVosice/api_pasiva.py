@@ -1,12 +1,20 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import spacy
-
+from fastapi.middleware.cors import CORSMiddleware
 # Cargamos el modelo de spaCy
 nlp = spacy.load("es_core_news_sm")
 
 # FastAPI app
 app = FastAPI(title="Conversor Pasiva a Activa", version="1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # Reemplazar * por dominio
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Modelo de entrada
 class TextoEntrada(BaseModel):
