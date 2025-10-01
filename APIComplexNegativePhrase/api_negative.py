@@ -20,13 +20,12 @@ def valor(doc):
 
 def negEncontrada(palabra):    
     negativo = {
-    "nadie", "falso", "ninguno","ningun", "negar",
-    "no", "nunca", "jamás", "ni", "apenas", "tampoco",
-    "ausencia", "falta", "carencia", "deficiencia",
-    "imposible", "incapaz", "inviable", "inválido", "equivocado", "insuficiente",
-    "carecer", "desaprobar", "fallar", "rechazar", "omitir",
-    "insatisfactorio", "incorrecto", "ineficaz", "incompleto","mentira"
-    }
+    "apenas","ausencia","carecer","carencia","desaprobar","deficiencia",
+    "equivocado","falso","fallar","falta","improbable","imposible",
+    "incapaz","incompleto","ineficaz","inviable","incorrecto","insatisfactorio",
+    "insuficiente","mentira","negar","nadie","ninguno","ningun",
+    "no","nunca","jamás","ni","renegar","rechazar"
+}
     return 1 if palabra in negativo else 0
 
 
