@@ -20,7 +20,7 @@ def valor(doc):
 
 def negEncontrada(palabra):    
     negativo = {
-    "apenas","ausencia","carecer","carencia","desaprobar","deficiencia",
+    "apenas","ausencia","carecer","carencia","desaprobar","deficiencia", "dudar",
     "equivocado","falso","fallar","falta","improbable","imposible",
     "incapaz","incompleto","ineficaz","inviable","incorrecto","insatisfactorio",
     "insuficiente","mentira","negar","nadie","ninguno","ningun",
