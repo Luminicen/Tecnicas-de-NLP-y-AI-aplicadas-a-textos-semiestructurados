@@ -6,6 +6,15 @@ nlp = spacy.load("es_core_news_sm")
 app = FastAPI()
 
 def encontrar_conectores_spacy(texto, conectores):
+    """
+    Encuentra conectores lógicos en un texto utilizando spaCy y PhraseMatcher.
+    PhraseMatcher busca frases exactas en el texto, lo que es útil para detectar conectores compuestos.
+    Args:
+        texto (str): El texto en el que buscar conectores.
+        conectores (list): Lista de conectores lógicos a buscar.
+    Returns:
+        list: Lista de conectores encontrados en el texto.
+    """
     matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
     patrones = [nlp.make_doc(c) for c in conectores]
     matcher.add("CONECTORES", patrones)
