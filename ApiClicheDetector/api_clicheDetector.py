@@ -47,13 +47,13 @@ cliches= [
 
 app = FastAPI()
 
-nlp = spacy.load("es_dep_news_trf")
+nlp = spacy.load("es_core_news_sm")
 
 
 class TextoEntrada(BaseModel):
     texto: str
 
-@app.post("/detectar_cliches/")
+@app.post("/detectar_cliches")
 def detectar_cliches_endpoint(entrada: TextoEntrada):
     resultado = detectar_cliches(entrada.texto, cliches, nlp)
     return {"cliches_encontrados": resultado}
