@@ -53,7 +53,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-nlp = spacy.load("es_dep_news_trf")
+nlp = spacy.load("es_core_news_sm")
 
 
 class TextoEntrada(BaseModel):
