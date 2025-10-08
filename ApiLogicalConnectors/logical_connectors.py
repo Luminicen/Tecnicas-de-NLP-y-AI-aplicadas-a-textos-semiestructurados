@@ -33,7 +33,8 @@ conectores_comunes = [
     "aun así", "asimismo", "de igual manera", "de la misma forma",
     "en otras palabras", "en efecto", "por ende", "luego", "entonces",
     "así mismo", "de lo contrario", "por supuesto", "en consecuencia", "aun cuando",
-    "y", "o"
+    "y", "o", "por lo que", "por otra parte", "de modo que", "de manera que", "ya que",
+    "del mismo modo", "igualmente", "consecuentemente"
     ]
 
 @app.get("/conectores-logicos/")
