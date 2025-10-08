@@ -11,12 +11,12 @@ max_float = sys.float_info.max
 min_float = -sys.float_info.max
 NIVELES_LEGIBILIDAD = {
     "Muy Fácil": (90, max_float),
-    "Fácil": (80, 89),
-    "Algo facíl": (70, 79),
-    "Normal (para adulto)": (60, 69),
-    "Algo dificil": (50, 59),
-    "Dificil": (30, 49),
-    "Muy dificil": (min_float, 29)
+    "Fácil": (80, 90),
+    "Algo fácil": (70, 80),
+    "Normal (para adulto)": (60, 70),
+    "Algo dificil": (50, 60),
+    "Dificil": (30, 50),
+    "Muy dificil": (min_float, 30)
 }
 
 def obtener_nivel_legibilidad(valor):
