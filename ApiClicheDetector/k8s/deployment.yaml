@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliche-detector-api
+  labels:
+    app: cliche-detector-api
+    version: v1
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: cliche-detector-api
+  template:
+    metadata:
+      labels:
+        app: cliche-detector-api
+        version: v1
+    spec:
+      containers:
+      - name: cliche-detector-container
+        image: gabiperez/voz-pasiva-api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        # Recursos
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        # Variables de entorno (si necesitas)
+        env:
+        - name: PORT
+          value: "8000"
+        - name: LOG_LEVEL
+          value: "info"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cliche-detector-api-service
+  labels:
+    app: cliche-detector-api
+spec:
+  selector:
+    app: cliche-detector-api
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: voz-pasiva-api
+  labels:
+    app: voz-pasiva-api
+spec:
+  to:
+    kind: Service
+    name: cliche-detector-api-service
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

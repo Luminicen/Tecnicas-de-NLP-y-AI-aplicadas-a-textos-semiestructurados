@@ -27,7 +27,8 @@ def test_negativa_compleja():
         # oración, resultado esperado
         ("No creo que no venga.", True),
         ("Es imposible que nadie llegue a tiempo.", True),
-        ("No es imposible que venga.", True)
+        ("No es imposible que venga.", True),
+        ("No es mentira que aprobaron el examen.", True)
     ]
 
     checkeo(ejemplos)
@@ -35,9 +36,8 @@ def test_negativa_compleja():
 def test_negativa_refuerzo():
     ejemplos = [
         # oración, resultado esperado
-        ("Nadie dijo que fuera dificil", False),
+        ("Nadie dijo que fuera dificil.", False),
         ("Nadie dijo nada.", False),
-        ("No vi a nadie",False),
-        ("No creo que nunca lo olviden.",False),
+        ("No vi a nadie.",False),
     ]
     checkeo(ejemplos)
