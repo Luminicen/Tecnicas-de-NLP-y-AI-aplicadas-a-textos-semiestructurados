@@ -5,8 +5,8 @@ from spacy.matcher import Matcher
 try:
     nlp = spacy.load("es_dep_news_trf")
 except OSError:
-    # Fallback: >pip install es_core_news_md
-    nlp = spacy.load("es_core_news_md")
+    # Fallback: >pip install es_core_news_sm
+    nlp = spacy.load("es_core_news_sm")
 
 # ------Construccion del matcher ------
 matcher = Matcher(nlp.vocab)
@@ -113,3 +113,15 @@ def detectar_tiempo_verbal(texto: str):
             resultados_unicos.append(clave)
 
     return resultados_unicos or []
+
+
+
+# Para testeos se puede ejecutar como main:
+if __name__ == "__main__":
+    if len(sys.argv)<1:
+        print("Uso: python main.py arg1 ")
+        sys.exit(1)
+
+
+    texto = "".join(sys.argv[1:]) 
+    print(verificacion(texto))
