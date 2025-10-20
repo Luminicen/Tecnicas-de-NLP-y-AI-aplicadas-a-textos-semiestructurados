@@ -1,0 +1,24 @@
+Como administrador quiero que el sistema rápidamente genere los reportes para que fácilmente pueda revisarlos en cualquier momento.
+
+Como usuario quiero que mis textos sean guardados y que el sistema me ha dado un mensaje de confirmación para saber que todo salió bien.
+
+Es necesario que se realice un respaldo de la base de datos cada 24 horas.
+
+Como usuario quiero una interfaz amigable para poder navegar sin dificultades.
+
+Me gustaria como  cliente de un ecomerce agregar nuevos productos al carrito
+
+La sistematización de los paradigmas epistemológicos, articulada con la transversalidad de los discursos hegemónicos, complejiza la comprensión semántica del texto.
+
+El concepto de textura proviene del campo táctil y, en segunda instancia, del campo visual. Remite a una configuración de elementos de la materia que se percibe de modo directo a través del tacto (al tocar un ladrillo o una hebra de lana, por ejemplo) o de manera abarcativa, con la mirada. Los artistas plásticos suelen referirse a las cualidades de la textura de una pintura o un objeto con adjetivos tales como rugoso, liso, blando, duro. Etimológicamente significa "disposición de los hilos de una tela".
+
+Es imposible aceptar la propuesta
+
+El informe fue elaborado por los estudiantes. Se considera necesario mejorar la sistematización del conocimiento, aunque no es imposible que el resultado no sea negativo. Creo que el texto es muy claro y el texto explica bien la idea. Sin embargo, el experimento fue exitoso—aunque inesperado—en varios sentidos!!!
+
+tiemposVerbales: Cuando llegué a casa, él ya había preparado la cena y ahora estoy descansando.
+palabras abstractas: imaginemos que lindo está el día
+opinion-percep: miré la película y pensé que estaba muy buena
+metricalegibilida: Vi un hombre en un barco con binoculares, Vi un hombre en un barco con binoculares, Vi un hombre en un barco con binoculares
+puntuacion: que lindo dia !!! ,
+
